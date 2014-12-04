@@ -1,0 +1,30 @@
+{% extends "webtheme.html" %}
+
+{% comment %}
+This is the project portal page
+{% endcomment %}
+
+{% block pagetitle %}{{ block.super }} - Projects{% endblock pagetitle %}
+
+{% block pagecontent %}
+    {% if categorized_project_list %}
+    <ul id="projectCategoryTabId">
+        {% for category, typed_project_list in categorized_project_list.iteritems %}
+        <li><a href="#{{ category }}">{{ category }}s</a></li>
+        {% endfor %}
+    </ul>
+
+    {% for category, typed_project_list in categorized_project_list.iteritems %}
+    <div class="ProjectCategoryTabContentClass" id="{{ category }}">
+        <ul style="list-style: none;" class="g">
+            {% for proj_type, project in typed_project_list.iteritems %}
+            <li><a href="{% url 'projects:detail' project.id %}"><img src="{{ project.cover_image.data.url }}" style="width:300px;height:300px" alt="{{ project.cover_image.data.title }}" ></a></li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endfor %}
+
+    {% else %}
+    <p>No projects are available.</p>
+    {% endif %}
+{% endblock pagecontent %}

@@ -1,0 +1,32 @@
+{% comment %}
+This is the theme template of the websote
+{% endcomment %}
+
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>{% block pagetitle %}LZ Design{% endblock pagetitle %}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'projects/indexstyle.css' %}" />
+    <script type="text/javascript" src="{% static 'projects/projecttab.js' %}"></script>
+</head>
+
+<body onload="init()">
+    {% block pageheadbar %}
+    <div id="titleBarId">
+        <a id="lzdesignId" href="{% url 'mainpage' %}">LZ Design</a>
+        <a class="TitleButtonClass" href="{% url 'projects:index' %}">Projects</a>
+        <a class="TitleButtonClass" href="{% url 'about:about' %}">About</a>
+        <a class="TitleButtonClass" href="{% url 'contact:contact' %}">Contact</a>
+    </div>
+    {% endblock pageheadbar %}
+
+    {% block pagecontent %}
+    {% endblock pagecontent %}
+
+    {% block pagefooter %}
+    {% endblock pagefooter %}
+</body>
+</html>

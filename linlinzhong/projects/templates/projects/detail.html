@@ -1,0 +1,25 @@
+{% extends "webtheme.html" %}
+
+{% comment %}
+This is the project detail page
+{% endcomment %}
+
+{% block pagetitle %}{{ block.super }} - Project: {{ project.title }}{% endblock pagetitle %}
+
+{% block pagecontent %}
+
+<h1>{{ project.title }}</h1>
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<body>
+
+{% for image in project.image_set.all|dictsort:"embed_project_order" %}
+    {% if image.embed_project_order > 0 %}
+	<img src="{{ image.data.url }}" alt="{{ image.title }}" style="width:1000px;height:500px">
+	<p>{{ image.embed_project_text }}</p>
+    {% endif %}
+{% endfor %}
+</body>
+
+{% endblock pagecontent %}

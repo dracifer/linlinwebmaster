@@ -1,0 +1,48 @@
+Q: ImageField raises “Incorrect string value” error when store an image having Chinese name to MySql db. 
+A: 1. In Mysql, check column: SHOW COLUMNS FROM projects_image in linlinzhong_v1;
+   2. Check settings for char in mysql: SHOW VARIABLES WHERE Variable_name LIKE 'character\_set\_%' OR Variable_name LIKE 'collation%';
+   3. fix projects_image type: ALTER TABLE linlinzhong_v1.projects_image MODIFY COLUMN data VARCHAR(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL;
+   4. optional step: update /etc/mysql/my.cnf: 
+      	[client]
+	default-character-set = utf8mb4
+
+	[mysql]
+	default-character-set = utf8mb4
+
+	[mysqld]
+	character-set-client-handshake = FALSE
+	character-set-server = utf8mb4
+	collation-server = utf8mb4_unicode_ci
+   5. Helpful Links:
+	https://mathiasbynens.be/notes/mysql-utf8mb4#character-sets
+	http://stackoverflow.com/questions/2108824/mysql-incorrect-string-value-error-when-save-unicode-string-in-django
+	http://dev.mysql.com/doc/refman/5.0/en/show-columns.html
+	http://dev.mysql.com/doc/refman/5.0/en/charset-connection.html
+
+Q: Specify Migration DB
+A: python manage.py migrate --database=xxx
+
+Q: Use Database other than Sqlite (e.g. MySql)
+A: Create user and database first using database shell/client and then migrate
+
+Q: Edit read only files
+A: sudo gvim xxxx
+
+Q:#Django# Context Stack
+A: Create different levels when do push() and remove top levels when pop()
+   E.g. from django.template import Context
+	c = Context()
+	c['a'] = 1
+	c.push() # Make a new Context level
+	c['a'] = 2
+	print(repr(c)) # [{'a': 1}, {'a': 2}]
+
+Q:#Django# TEMPLATE_DIRS in setting specifies list of locations to search by django.template.loaders.filesystem.Loader
+
+Q: CSS selector (element p -- <p>, id #name -- <p id='name'>, class .class -- <h1 class='class'>, element belongs to specific class p.class -- <p class='class'>, grouping selector h1,h2,p {})
+
+Q: Javascript uses HTML DOM to access/change HTML: document.getElementById("demo").tagName and nodeName are UPPER CASE!!
+    http://stackoverflow.com/questions/11811426/why-does-the-tagname-dom-property-return-an-uppercase-value
+
+Q: #Django# Update Model
+A: 1) Change model.py, 2) edit admin.py, 3) python manage.py makemigrations <model name> 4) python manage.py migrate <--database=xxx>
