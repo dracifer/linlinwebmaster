@@ -1,3 +1,5 @@
+This project now is in git repo https://github.com/dracifer/linlinwebmaster.git
+
 Q: ImageField raises “Incorrect string value” error when store an image having Chinese name to MySql db. 
 A: 1. In Mysql, check column: SHOW COLUMNS FROM projects_image in linlinzhong_v1;
    2. Check settings for char in mysql: SHOW VARIABLES WHERE Variable_name LIKE 'character\_set\_%' OR Variable_name LIKE 'collation%';
